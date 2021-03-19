@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="{{app.description}}">
+<meta name="keywords"
+	content="app, responsive, angular, bootstrap, dashboard, admin">
+<title data-ng-bind="currTitle"></title>
+</head>
+<body ng-app="angularJs" ng-controller="angularController">
+	<script src="/statics/js/angular.js"></script>
+
+	<div style="border: 1px #red solid; width: 500px; height: 350px;"
+		align="center">
+		<div>
+			<input type="text" ng-model="name">
+		</div>
+		<div>
+			<input type="button" value="查 询" ng-click="goSelect()">
+		</div>
+	</div>
+	<script type="text/javascript">
+		var App = angular.module("angularJs",
+				[ '$scope', '$rootScope', '$http' ]).controller(
+				"angularController", function($scope, $rootScope, $http) {
+					$scope.goSelect = function() {
+						$http({
+							type : "post",
+							url : "angularJs.do",
+							params : {
+								name : $scope.name
+							}
+						}).seccess(function(data){
+							alert(data + "继续...");
+						}).error(function(){
+							alert("发生异常！！！");
+						});
+					}
+				});
+	</script>
+</body>
+</html>
